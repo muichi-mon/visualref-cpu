@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VisualRef — Final Survey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ============ intro ============ -->
+  <header>
+    <div class="eyebrow">User study — final survey</div>
+    <h1>One last thing — how did that feel?</h1>
+    <p class="lede">
+      A few quick questions about each feature, then an overall rating. This
+      evaluates VisualRef, not you — there are no right answers.
+    </p>
+  </header>
+
+  <form id="surveyForm">
+
+    <!-- ============ per-feature feedback ============ -->
+    <section class="survey-section" id="feature-feedback">
+      <div class="section-head">
+        <div class="eyebrow">Feature feedback</div>
+        <h2>Rate each part of the interface</h2>
+        <p class="section-note">1 = not at all &nbsp;·&nbsp; 7 = extremely</p>
+      </div>
+
+      <div class="survey-grid">
+
+        <!-- Initial Search -->
+        <div class="survey-card" data-group="initial-search">
+          <h3><span class="dot"></span>Initial search</h3>
+          <div class="question" data-question>
+            <label class="q-label">How easy did you find using the feature?</label>
+            <div class="scale-row" data-scale="initial-search-easy"></div>
+            <div class="scale-labels"><span>Not easy</span><span>Very easy</span></div>
+          </div>
+          <div class="question" data-question>
+            <label class="q-label">How useful was the feature during this task?</label>
+            <div class="scale-row" data-scale="initial-search-useful"></div>
+            <div class="scale-labels"><span>Not useful</span><span>Very useful</span></div>
+          </div>
+        </div>
+
+        <!-- Bounding Boxes -->
+        <div class="survey-card" data-group="bounding-boxes">
+          <h3><span class="dot"></span>Bounding boxes</h3>
+          <div class="question" data-question>
+            <label class="q-label">How easy did you find using the bounding boxes?</label>
+            <div class="scale-row" data-scale="bbox-easy"></div>
+            <div class="scale-labels"><span>Not easy</span><span>Very easy</span></div>
+          </div>
+          <div class="question" data-question>
+            <label class="q-label">How useful were the bounding boxes during this task?</label>
+            <div class="scale-row" data-scale="bbox-useful"></div>
+            <div class="scale-labels"><span>Not useful</span><span>Very useful</span></div>
+          </div>
+        </div>
+
+        <!-- Relevant / Irrelevant -->
+        <div class="survey-card" data-group="relevant-irrelevant">
+          <h3><span class="dot"></span>Relevant / irrelevant</h3>
+          <div class="question" data-question>
+            <label class="q-label">How easy did you find using the relevant/irrelevant feedback feature?</label>
+            <div class="scale-row" data-scale="relirr-easy"></div>
+            <div class="scale-labels"><span>Not easy</span><span>Very easy</span></div>
+          </div>
+          <div class="question" data-question>
+            <label class="q-label">How useful was the feature during this task?</label>
+            <div class="scale-row" data-scale="relirr-useful"></div>
+            <div class="scale-labels"><span>Not useful</span><span>Very useful</span></div>
+          </div>
+        </div>
+
+        <!-- Applying Feedback -->
+        <div class="survey-card" data-group="applying-feedback">
+          <h3><span class="dot"></span>Applying feedback</h3>
+          <div class="question" data-question>
+            <label class="q-label">How easy did you find applying the feedback?</label>
+            <div class="scale-row" data-scale="apply-easy"></div>
+            <div class="scale-labels"><span>Not easy</span><span>Very easy</span></div>
+          </div>
+          <div class="question" data-question>
+            <label class="q-label">How useful was the feature during this task?</label>
+            <div class="scale-row" data-scale="apply-useful"></div>
+            <div class="scale-labels"><span>Not useful</span><span>Very useful</span></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ short rating survey ============ -->
+    <section class="survey-section" id="overall-rating">
+      <div class="section-head">
+        <div class="eyebrow">Short rating survey</div>
+        <h2>Overall impressions</h2>
+      </div>
+
+      <div class="survey-grid">
+        <div class="survey-card wide" data-group="overall">
+
+          <div class="question" data-question>
+            <label class="q-label">How useful did you find using the tool?</label>
+            <div class="scale-row" data-scale="overall-useful"></div>
+            <div class="scale-labels"><span>Not useful</span><span>Very useful</span></div>
+          </div>
+
+          <div class="question" data-question>
+            <label class="q-label">How easy did you find the tool to use overall?</label>
+            <div class="scale-row" data-scale="overall-easy"></div>
+            <div class="scale-labels"><span>Not easy</span><span>Very easy</span></div>
+          </div>
+
+          <div class="question" data-question>
+            <label class="q-label">Were there situations where VisualRef was better than a simple query-based search?</label>
+            <div class="toggle-row" data-toggle="better-than-text">
+              <button type="button" class="toggle-btn" data-value="Yes">Yes</button>
+              <button type="button" class="toggle-btn" data-value="No">No</button>
+            </div>
+          </div>
+
+          <div class="question" data-question>
+            <label class="q-label">How likely would you be to use VisualRef over other search options?</label>
+            <div class="scale-row" data-scale="likelihood"></div>
+            <div class="scale-labels"><span>Not likely</span><span>Very likely</span></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ general comments ============ -->
+    <section class="survey-section" id="comments">
+      <div class="section-head">
+        <div class="eyebrow">Anything else</div>
+        <h2>General comments or feedback</h2>
+        <p class="section-note">Optional — anything that stood out, good or bad.</p>
+      </div>
+      <textarea class="comments-textarea" placeholder="e.g. what felt intuitive, what felt confusing, anything you'd change…" data-comments></textarea>
+    </section>
+
+    <!-- ============ finish ============ -->
+    <div class="finish-row">
+      <div class="form-warning" data-form-warning>⚠ Please answer every question above before finishing.</div>
+      <button type="submit" class="btn full" id="finishButton" style="margin-top: 16px;">Finish</button>
+    </div>
+
+  </form>
+
+  <!-- ============ thank-you state (shown after Finish) ============ -->
+  <div class="thankyou-panel" data-thankyou hidden>
+    <div class="check-badge">✓</div>
+    <h2>Thanks — you're all done.</h2>
+    <p>Your responses have been recorded. This wraps up the VisualRef user study — appreciate you taking the time.</p>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
