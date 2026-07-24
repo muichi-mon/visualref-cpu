@@ -92,11 +92,20 @@ captioning_relevance_feedback = CaptionVLMRelevanceFeedback(
 rocchio_update = RocchioUpdate(alpha=0.6, beta=0.2, gamma=0.2)
 
 
-def update_logs_retrieval(experiment_id, retrieval_round, user_query, top_k, retrieved_image_paths, scores):
+# URL of the final-survey app (Express + MySQL), used to hand off the participant
+# once they finish the retrieval task.
+SURVEY_URL = os.getenv("SURVEY_URL", "http://localhost:3000")
+
+
+def update_logs_retrieval(
+        experiment_id, retrieval_round, user_query, top_k,
+        retrieved_image_paths, scores, participant_id: str = "unknown"
+    ):
     logs["experiments"][experiment_id].append(
         {
             "timestamp": get_timestamp(),
             "type": "retrieval",
+            "participant_id": participant_id,
             "round": retrieval_round,
             "user_query": user_query,
             "top_k": top_k,
@@ -113,7 +122,8 @@ def update_logs_feedback(
         user_query: str,
         annotations: List[Dict[str, Any]],
         relevant_textual_features: Optional[str] = None,
-        irrelevant_textual_features: Optional[str] = None
+        irrelevant_textual_features: Optional[str] = None,
+        participant_id: str = "unknown",
     ):
     if relevant_textual_features is None:
         relevant_textual_features = ""
@@ -123,6 +133,7 @@ def update_logs_feedback(
         {
             "timestamp": get_timestamp(),
             "type": "feedback",
+            "participant_id": participant_id,
             "round": retrieval_round,
             "user_query": user_query,
             "annotations": annotations,
@@ -133,7 +144,7 @@ def update_logs_feedback(
     save_json(logs, config["RETRIEVAL_LOGS_PATH"])
 
 
-def image_search(query, top_k=5):
+def image_search(query, top_k=5, participant_id="unknown"):
     """Retrieve images based on text query"""
     global retrieval_round
     global experiment_id
@@ -153,7 +164,10 @@ def image_search(query, top_k=5):
     retrieved_images = [Image.open(path) for path in retrieved_image_paths]
     retrieved_images = resize_images(retrieved_images, config)
 
-    update_logs_retrieval(experiment_id, retrieval_round, query, top_k, retrieved_image_paths, scores)
+    update_logs_retrieval(
+        experiment_id, retrieval_round, query, top_k,
+        retrieved_image_paths, scores, participant_id=participant_id
+    )
 
     return retrieved_images, scores, retrieved_image_paths
 
@@ -187,7 +201,8 @@ def feedback_loop(
     annotator_json_boxes_list,
     relevant_textual_features: Optional[str] = None,
     irrelevant_textual_features: Optional[str] = None,
-    fuse_initial_query: bool = False
+    fuse_initial_query: bool = False,
+    participant_id: str = "unknown",
 ):
     """Apply feedback to the image search"""
     print(annotator_json_boxes_list)
@@ -230,12 +245,16 @@ def feedback_loop(
         query,
         annotator_json_boxes_list,
         relevant_textual_features,
-        irrelevant_textual_features
+        irrelevant_textual_features,
+        participant_id=participant_id,
     )
 
     retrieval_round += 1
 
-    update_logs_retrieval(experiment_id, retrieval_round, query, top_k, retrieved_image_paths, scores)
+    update_logs_retrieval(
+        experiment_id, retrieval_round, query, top_k,
+        retrieved_image_paths, scores, participant_id=participant_id
+    )
 
     return (
         retrieved_images, 
@@ -256,11 +275,51 @@ css = """
 .feedback textarea {font-size: 20px !important;}
 """
 
+def get_participant_id(request: gr.Request):
+    """Pull participant_id off the URL (?participant_id=...) set by the onboarding page."""
+    print("REQUEST:", request)
+    print("QUERY PARAMS:", request.query_params)
+
+    pid = request.query_params.get("participant_id", "unknown")
+    print("PID:", pid)
+    if request is None:
+        return "unknown"
+    return request.query_params.get("participant_id", "unknown")
+
+
 with gr.Blocks(title="Multimodal Retrieval Demo", css=css) as demo:
     gr.Markdown("# Text-to-Image Search")
 
     image_top_k = gr.State(value=5)
     fuse_initial_query = gr.State(value=config.get("FUSE_INITIAL_QUERY", True))
+    participant_id = gr.Textbox(
+        visible=False,
+        label="participant_id"
+    )
+
+    # Implicit behavioral counters — not shown to the participant, just used
+    # to tally how many times key buttons were pressed during the session.
+    search_click_count = gr.Number(value=0, visible=False, precision=0)
+    apply_feedback_click_count = gr.Number(value=0, visible=False, precision=0)
+
+    def increment_count(count):
+        return count + 1
+
+    demo.load(get_participant_id, inputs=None, outputs=participant_id)
+
+    # Stamp the moment the participant actually lands on this page (i.e. right
+    # after being redirected in), so we can later measure how long they spent
+    # here before clicking "Finish task -> Continue to survey".
+    demo.load(
+        fn=None,
+        inputs=None,
+        outputs=None,
+        js="""
+        () => {
+            window.__taskStartTime = Date.now();
+        }
+        """
+    )
 
     with gr.Tab("Image Search"):
         with gr.Row():
@@ -319,9 +378,15 @@ with gr.Blocks(title="Multimodal Retrieval Demo", css=css) as demo:
             )
 
         image_search_btn.click(
-            fn=lambda query, top_k: format_outputs_image_search(*image_search(query, top_k)),
-            inputs=[query, image_top_k],
+            fn=lambda query, top_k, pid: format_outputs_image_search(*image_search(query, top_k, participant_id=pid)),
+            inputs=[query, image_top_k, participant_id],
             outputs=[image_gallery, relevant_image_paths, feedback_explanation_gallery, *annotators],
+        )
+
+        image_search_btn.click(
+            fn=increment_count,
+            inputs=search_click_count,
+            outputs=search_click_count,
         )
 
         with gr.Row():
@@ -391,6 +456,7 @@ with gr.Blocks(title="Multimodal Retrieval Demo", css=css) as demo:
             relevant_features,
             irrelevant_features,
             fuse_initial_query,
+            pid,
             *annotator_json_boxes_list,
         ):
             results = feedback_loop(
@@ -400,13 +466,14 @@ with gr.Blocks(title="Multimodal Retrieval Demo", css=css) as demo:
                 annotator_json_boxes_list,
                 relevant_features,
                 irrelevant_features,
-                fuse_initial_query
+                fuse_initial_query,
+                participant_id=pid,
             )
             return format_outputs_feedback(*results)
         
         apply_feedback_btn.click(
             fn=feedback_interface,
-            inputs=[query, image_top_k, relevant_image_paths, relevant_features, irrelevant_features, fuse_initial_query, *annotator_json_boxes_list],
+            inputs=[query, image_top_k, relevant_image_paths, relevant_features, irrelevant_features, fuse_initial_query, participant_id, *annotator_json_boxes_list],
             outputs=[image_gallery, relevant_image_paths, *annotators],
         ).then(
             fn=lambda: [None for _ in annotator_json_boxes_list],
@@ -414,6 +481,38 @@ with gr.Blocks(title="Multimodal Retrieval Demo", css=css) as demo:
             outputs=[*annotator_json_boxes_list]
         )
 
+        apply_feedback_btn.click(
+            fn=increment_count,
+            inputs=apply_feedback_click_count,
+            outputs=apply_feedback_click_count,
+        )
+
+        # ---------- hand-off: finish the retrieval task, continue to the survey ----------
+        with gr.Row():
+            finish_btn = gr.Button("Finish task → Continue to survey", variant="primary")
+
+        finish_btn.click(
+            fn=None,
+            inputs=[participant_id, search_click_count, apply_feedback_click_count],
+            js="""
+            (pid, searchClicks, applyFeedbackClicks) => {
+                const startTime = window.__taskStartTime || Date.now();
+                const timeTakenSeconds = Math.round((Date.now() - startTime) / 1000);
+                const url = new URL("http://localhost:3000/");
+                url.searchParams.set("participant_id", pid);
+                url.searchParams.set("time_taken_seconds", timeTakenSeconds);
+                url.searchParams.set("search_button_clicks", searchClicks);
+                url.searchParams.set("apply_feedback_clicks", applyFeedbackClicks);
+                window.location.href = url.toString();
+            }
+            """
+        )
+
 
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(
+        # server_name=os.getenv("GRADIO_SERVER_NAME", "0.0.0.0"),
+        # server_port=int(os.getenv("GRADIO_SERVER_PORT", os.getenv("PORT", "7860"))),
+        server_name="127.0.0.1",  # or "localhost"
+        server_port=7860,
+    )

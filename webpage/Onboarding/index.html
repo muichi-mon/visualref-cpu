@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VisualRef — Onboarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ============ sticky progress rail ============ -->
+  <nav class="rail" aria-label="Onboarding progress">
+    <div class="rail-brand">VisualRef / Onboarding</div>
+    <a class="rail-item" href="#background"><span class="n">01</span> Background</a>
+    <a class="rail-item" href="#terms"><span class="n">02</span> Key terms</a>
+    <a class="rail-item" href="#task"><span class="n">03</span> Your task</a>
+    <a class="rail-item" href="#features"><span class="n">04</span> Features</a>
+    <a class="rail-item" href="#measure"><span class="n">05</span> What we measure</a>
+    <a class="rail-item" href="#tutorial"><span class="n">06</span> Tutorial</a>
+    <a class="rail-item" href="#ready"><span class="n">07</span> Begin</a>
+  </nav>
+
+  <main>
+
+    <!-- ============ hero ============ -->
+    <section class="hero">
+      <div class="eyebrow">User study — onboarding</div>
+      <h1>Finding an image<br>you can't quite describe.</h1>
+      <p class="lede">
+        VisualRef is an experimental image retrieval tool. Instead of typing better
+        keywords, you'll guide the system with visual feedback — marking what's
+        relevant, boxing the parts that matter, and refining as you go.
+      </p>
+      <div class="hero-tags">
+        <span class="tag">~15 min total</span>
+        <span class="tag">no correct strategy</span>
+        <span class="tag">tutorial included</span>
+      </div>
+      <div class="scroll-cue"><span class="arrow">↓</span> scroll to begin</div>
+    </section>
+
+    <!-- ============ background ============ -->
+    <section class="block" id="background">
+      <div class="eyebrow">Background</div>
+      <h2>Why not just search with text?</h2>
+      <p>
+        Keyword search works well until the image in your head is hard to put into
+        words. VisualRef is built for that gap: rather than relying only on a text
+        query, you can steer the results directly — telling the system which images
+        are close, which parts of an image matter, and which don't.
+      </p>
+      <p>
+        This study looks at how people actually use those tools when searching for a
+        specific target image, and how the experience feels along the way.
+      </p>
+    </section>
+
+    <!-- ============ key terms ============ -->
+    <section class="block wide" id="terms">
+      <div class="eyebrow">Key terms</div>
+      <h2>Vocabulary you'll see throughout</h2>
+      <dl class="glossary">
+        <div class="term">
+          <dt>Image retrieval</dt>
+          <dd>The process of finding a specific image, or set of images, that matches your search goal.</dd>
+        </div>
+        <div class="term">
+          <dt>Query</dt>
+          <dd>What you give the system to start a search — text, an image example, or another kind of input.</dd>
+        </div>
+        <div class="term">
+          <dt>Search iteration</dt>
+          <dd>One full cycle of searching and refining. Finding a target image may take several.</dd>
+        </div>
+        <div class="term">
+          <dt>Relevance feedback</dt>
+          <dd>Marking whether a result is useful or not useful for what you're trying to find.</dd>
+        </div>
+        <div class="term">
+          <dt>Bounding box</dt>
+          <dd>A rectangle you draw around a region of an image to point at exactly what matters.</dd>
+        </div>
+        <div class="term">
+          <dt>Visual search</dt>
+          <dd>Searching by an image's content or visual characteristics, rather than by words alone.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- ============ your task ============ -->
+    <section class="block" id="task">
+      <div class="eyebrow">Instructions</div>
+      <h2>Your task, each round</h2>
+      <p>A target image is shown briefly, then hidden. From there:</p>
+      <ol class="steplist">
+        <li><span class="num">01</span><span>Look at the target image while it's shown — it disappears after a short time.</span></li>
+        <li><span class="num">02</span><span>Use VisualRef to search the image collection for that exact image.</span></li>
+        <li><span class="num">03</span><span>Use any combination of the available features to refine your results.</span></li>
+        <li><span class="num">04</span><span>Once you've found it, mark the task as complete.</span></li>
+        <li><span class="num">05</span><span>Answer a short questionnaire about that round before moving on.</span></li>
+      </ol>
+      <p style="margin-top: 22px; font-size: 0.9rem;">
+        There's no single correct strategy — use the system as naturally as you would
+        on your own, and do your best if a target proves hard to find before moving on.
+      </p>
+    </section>
+
+    <!-- ============ features ============ -->
+    <section class="block wide" id="features">
+      <div class="eyebrow">Using VisualRef</div>
+      <h2>Four tools, used in any combination</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3><span class="dot"></span>Initial search</h3>
+          <p>Start the retrieval process from the search interface, with a text description.</p>
+        </div>
+        <div class="feature-card">
+          <h3><span class="dot"></span>Bounding boxes</h3>
+          <p>Highlight the specific region of a result that's important — or unimportant — to your search.</p>
+        </div>
+        <div class="feature-card">
+          <h3><span class="dot"></span>Relevant / irrelevant feedback</h3>
+          <p>Flag which results are helping and which are getting in the way.</p>
+        </div>
+        <div class="feature-card">
+          <h3><span class="dot"></span>Query refinement</h3>
+          <p>Feed what you've marked back into the system to sharpen the next set of results.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ what we measure ============ -->
+    <section class="block" id="measure">
+      <div class="eyebrow">What we measure</div>
+      <h2>This evaluates the tool, not you</h2>
+      <p>Nothing here is a performance test. Over the course of the study we log:</p>
+      <ul class="plain-list">
+        <li>Task completion time</li>
+        <li>Search interactions</li>
+        <li>Number of search refinements</li>
+        <li>Retrieval success</li>
+        <li>Your questionnaire responses</li>
+      </ul>
+      <p style="margin-top: 16px; font-size: 0.88rem;">All data is analyzed anonymously and used only for research purposes.</p>
+    </section>
+
+    <!-- ============ tutorial (interactive) ============ -->
+    <section class="block wide tutorial-shell" id="tutorial" data-tutorial>
+      <div class="eyebrow">Tutorial</div>
+      <h2>Try it before it counts</h2>
+      <p>This walkthrough doesn't contribute to the study results — it's just for you to get comfortable with the interface.</p>
+
+      <div class="tut-progress" aria-hidden="true">
+        <div class="seg"><div class="fill"></div></div>
+        <div class="seg"><div class="fill"></div></div>
+        <div class="seg"><div class="fill"></div></div>
+      </div>
+
+      <!-- Step 1: search -->
+      <div data-tut-step>
+        <div class="tut-caption" data-step-of></div>
+        <h3 class="tut-title">Starting a search</h3>
+        <p class="tut-copy">Type a text query and search. VisualRef returns images it considers visually similar, each with a relevance score.</p>
+        <div class="app-mock">
+          <div class="chrome-bar"><span></span><span></span><span></span></div>
+          <div class="search-label">Describe the image you would like to find:</div>
+          <div class="query-row">
+            <input type="text" data-mock-search-input placeholder="dog">
+          </div>
+          <button class="btn search-full-btn" data-mock-search-btn>Search Images</button>
+
+          <div class="retrieved-header"><span class="grid-icon"><span></span><span></span><span></span><span></span></span> Retrieved Images</div>
+          <div class="result-grid" data-mock-results hidden>
+            <div class="result-card">
+              <div class="thumb-scene indoor emoji-scene">🐕 🤡</div>
+              <div class="score">Relevance score: 4.403719425…</div>
+            </div>
+            <div class="result-card">
+              <div class="thumb-scene outdoor emoji-scene">🐕‍🦺</div>
+              <div class="score">Relevance score: 4.350780487…</div>
+            </div>
+            <div class="result-card">
+              <div class="thumb-scene outdoor emoji-scene">🐩</div>
+              <div class="score">Relevance score: 4.206528663…</div>
+            </div>
+            <div class="result-card">
+              <div class="thumb-scene dusk emoji-scene">🐶</div>
+              <div class="score">Relevance score: 4.204372882…</div>
+            </div>
+            <div class="result-card">
+              <div class="thumb-scene dusk emoji-scene">🦮</div>
+              <div class="score">Relevance score: 4.201043128…</div>
+            </div>
+          </div>
+          <div class="hint">Try editing the query and pressing “Search Images” again.</div>
+        </div>
+      </div>
+
+      <!-- Step 2: bounding boxes + relevant/irrelevant (merged) -->
+      <div data-tut-step hidden>
+        <div class="tut-caption" data-step-of></div>
+        <h3 class="tut-title">Bounding boxes &amp; feedback</h3>
+        <p class="tut-copy">Draw a box around the part of an image that matters. As soon as you release, a floating prompt lets you mark that region relevant or irrelevant.</p>
+        <div class="app-mock">
+          <div class="chrome-bar"><span></span><span></span><span></span></div>
+          <div class="result-panel">
+            <div class="panel-head"><span>Result 1</span><span class="icons">⬇ ✕</span></div>
+            <div class="dropdown-wrap" style="display:block;">
+              <div class="result-card" data-bbox-target style="border:none; border-radius:0; cursor:crosshair;">
+                <div class="thumb-scene indoor wide">
+                  <span class="emoji-glyph">🐕 <span class="clown-emoji" data-clown-emoji>🤡</span></span>
+                  <div class="bbox" data-bbox-layer hidden></div>
+                  <span class="tag-pill" data-tag-pill hidden></span>
+                  <div class="bbox-demo" data-bbox-demo></div>
+                  <div class="bbox-demo-cursor" data-bbox-demo-cursor></div>
+                </div>
+              </div>
+              <div class="dropdown-menu" data-dropdown hidden>
+                <div class="options">
+                  <button class="option" data-mark-relevant><span class="check" data-check-relevant>✓</span> Relevant</button>
+                  <button class="option" data-mark-irrelevant><span class="check" data-check-irrelevant></span> Irrelevant</button>
+                </div>
+                <div class="swatch relevant" data-swatch></div>
+                <div class="actions">
+                  <button data-dropdown-cancel>Cancel</button>
+                  <button class="ok" data-dropdown-ok>OK</button>
+                </div>
+              </div>
+            </div>
+            <div class="mini-toolbar">
+              <div class="toolbar-icon-btn active" title="Draw bounding box">⛶</div>
+              <div class="toolbar-icon-btn" title="Pan">✋</div>
+            </div>
+            <button class="get-bbox-btn" data-toggle-json>Get bounding boxes for Result 1</button>
+            <div class="json-placeholder" data-json-preview hidden>{ "x": 0.2, "y": 0.15, "w": 0.55, "h": 0.7 }</div>
+          </div>
+          <div class="hint">Click and drag on the image above to draw a bounding box — the relevant/irrelevant prompt appears automatically.</div>
+        </div>
+      </div>
+
+      <!-- Step 3: refine -->
+      <div data-tut-step hidden>
+        <div class="tut-caption" data-step-of></div>
+        <h3 class="tut-title">Refining the search</h3>
+        <p class="tut-copy">Describe what made a region relevant or irrelevant, then apply it — each refinement is a new search iteration.</p>
+        <div class="app-mock">
+          <div class="chrome-bar"><span></span><span></span><span></span></div>
+          <div class="feedback-fields">
+            <div class="field rel">
+              <label>Relevant features</label>
+              <input type="text" placeholder="A brown dog with a collar">
+            </div>
+            <div class="field irrel">
+              <label>Irrelevant features</label>
+              <input type="text" value="Clown">
+            </div>
+          </div>
+          <button class="btn search-full-btn" style="margin-top: 12px;" data-apply-feedback>Apply Feedback</button>
+
+          <div class="refined-results" data-refined-results hidden>
+            <div class="retrieved-header"><span class="grid-icon"><span></span><span></span><span></span><span></span></span> Retrieved Images — iteration 2</div>
+            <div class="result-grid">
+              <div class="result-card"><div class="thumb-scene indoor-2 emoji-scene">🐕</div><div class="score">Relevance score: 0.269499778…</div></div>
+              <div class="result-card"><div class="thumb-scene indoor-3 emoji-scene">🐕‍🦺</div><div class="score">Relevance score: 0.255183458…</div></div>
+              <div class="result-card"><div class="thumb-scene indoor emoji-scene">🐩</div><div class="score">Relevance score: 0.259603993…</div></div>
+              <div class="result-card"><div class="thumb-scene indoor-2 emoji-scene">🐶</div><div class="score">Relevance score: 0.245367023…</div></div>
+              <div class="result-card"><div class="thumb-scene indoor-3 emoji-scene">🦮</div><div class="score">Relevance score: 0.244828715…</div></div>
+            </div>
+          </div>
+          <div class="hint" data-apply-status hidden></div>
+        </div>
+      </div>
+
+      <div class="tut-nav">
+        <button class="btn secondary" data-tut-prev>← Back</button>
+        <span class="step-of" data-step-of-nav></span>
+        <button class="btn" data-tut-next>Next step →</button>
+      </div>
+    </section>
+
+    <!-- ============ ready / finish ============ -->
+    <section class="block finish" id="ready">
+      <div class="panel">
+        <div class="eyebrow">You're set</div>
+        <h2>Ready when you are</h2>
+        <ul class="checklist">
+          <li>You know the four features: search, boxes, relevance, refinement</li>
+          <li>You've tried each one in the tutorial above</li>
+          <li>There's no correct strategy — use it naturally</li>
+        </ul>
+        <button id="helloButton">Begin the study</button>
+        <footer class="foot">This takes you to the live VisualRef task environment.</footer>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
